@@ -1,0 +1,127 @@
+﻿@model CinemaWeb.Models.Movie
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chọn suất</title>
+    <link rel="stylesheet" href="~/CSS/style.css">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="~/CSS/grid.css">
+
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="menu">
+            <a href="#" class="logo">
+                <i class='bx bx-movie-play bx-tada main-color'></i>Fl<span class="main-color">e</span>x
+            </a>
+        </div>
+        <div class="movie-main">
+            <div class="movie-img">
+                <img src="~/wwwroot/upload/img/movies/@Model.img" alt="">
+            </div>
+
+            <div class="movie-main2">
+                <table border="0" cellpadding="5" cellspacing="0">
+
+                    <tbody>
+                        <tr>
+                            <td>Tên phim:</td>
+                            <td>@Html.DisplayFor(model => model.name)</td>
+                        </tr>
+                        <tr>
+                            <td>Thời lượng:</td>
+                            <td>@Html.DisplayFor(model => model.length_time) phút</td>
+                        </tr>
+                        <tr>
+                            <td>Diễn viên:</td>
+                            <td>
+                                @if (Model.id == 1)
+                                {
+                                    <span>Hồng Ánh, Huỳnh Hạo Khang, Mai Tài Phến, Công Ninh, Hứa Vĩ Văn, Tuyền Mập, Tuấn Trần,...</span>
+                                }
+                                else if (Model.id == 2)
+                                {
+                                    <span>Không có diễn viên</span>
+                                }
+                                else if (Model.id == 3)
+                                {
+                                    <span>Leonardo DiCaprio, Robert De Niro, Lily Gladstone,...</span>
+                                }
+                                else if (Model.id == 4)
+                                {
+                                    <span>  Megan Suri, Neeru Bajwa, Mohana Krishnan, Betty Gabriel,...</span>
+                                }
+                                else if (Model.id == 5)
+                                {
+                                    <span>Christian Bale, Michael Caine, Heath Ledger, Aaron Eckhart,...</span>
+                                }
+                                else if (Model.id == 6)
+                                {
+                                    <span>Tom Cruise, Rebecca Ferguson, Vanessa Kirby,...</span>
+                                }
+                                else if (Model.id == 7)
+                                {
+                                    <span>  Boyd Holbrook, Thomas Kretschmann, Mads Mikkelsen, Harrison Ford,... </span>
+                                }
+                                else if (Model.id == 8)
+                                {
+                                    <span>Ty Simpkins, Patrick Wilson, Hiam Abbass, Sinclair Daniel, Andrew Astor,...</span>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                        <tr>
+                            <td>Trạng thái:</td>
+                            <td>
+                                @if (Model.status == 1)
+                                {
+                                    <span>ĐANG CHIẾU</span>
+                                }
+                                else if (Model.status == 0)
+                                {
+                                    <span>SẮP CHIẾU</span>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Tuổi phù hợp:</td>
+                            <td>C @Html.DisplayFor(model => model.ageallow)+</td>
+                        </tr>
+                        <tr>
+                            <td>Mô tả:</td>
+                            <td> @Html.DisplayFor(model => model.description)</td>
+                        </tr>
+
+
+
+
+                    </tbody>
+                </table>
+                <div class="movie-main3">
+                    <button><a href="seat.html"> Mua vé</a></button>
+                    <button onclick="window.open('@Html.DisplayFor(model => model.trailer)', '_blank')">Xem trailer</button>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <h2 style="margin-top:20px">CHỌN SUẤT</h2>
+
+        @Html.Action("getSchedule", "Schedules", new { id = @Model.id})
+        
+        </div>
+        
+</body>
+
+</html>

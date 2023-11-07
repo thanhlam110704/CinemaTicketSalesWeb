@@ -1,0 +1,20 @@
+﻿@model IEnumerable<CinemaWeb.Models.ScheduleTime>
+
+<div class="choose-time" id="@ViewBag.id">
+    <table>
+        <tr>
+            <td rowspan="3">Phụ Đề</td>
+            <td rowspan="3">2D</td>
+        </tr>
+        <tr>
+            @foreach (var item in Model)
+            {
+
+                <td>
+                    <p><a href="~/Seats/Index">@item.time.ToString(@"hh\:mm")</a></p>
+                </td>
+
+            }
+        </tr>
+    </table>
+</div>

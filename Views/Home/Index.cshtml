@@ -1,0 +1,107 @@
+﻿@model IEnumerable<CinemaWeb.Models.Movie>
+@{
+    ViewBag.Title = "Home Page";
+}
+<body>
+    <div class="container">
+
+        <div class="hero-section">
+            <!-- HERO SLIDE -->
+            <div class="hero-slide">
+                <div class="owl-carousel carousel-nav-center" id="hero-carousel">
+                    <!-- SLIDE ITEM -->
+                    <div class="hero-slide-item">
+                        <img src="~/IMG/maxresdefault.jpg" alt="">
+                        <div class="overlay"></div>
+                        <div class="hero-slide-item-content">
+                            <div class="item-content-wraper">
+                                <div class="item-content-title top-down">
+                                    Insidious 5
+                                </div>
+                                <div class="movie-infos top-down delay-2">
+                                    <div class="movie-info">
+                                        <i class="bx bxs-star"></i>
+                                        <span>9.5</span>
+                                    </div>
+                                    <div class="movie-info">
+                                        <i class="bx bxs-time"></i>
+                                        <span>120 mins </span>
+                                    </div>
+                                    <div class="movie-info">
+                                        <span>HD </span>
+                                    </div>
+                                    <div class="movie-info">
+                                        <span>18+</span>
+                                    </div>
+                                </div>
+                                <div class="item-content-description top-down delay-4">
+                                    Lấy bối cảnh sau mười năm kể từ hai phần phim đầu tiên
+                                    Josh Lambert (Patrick Wilson) đang chuyển đến sinh sống tại phía Đông để đưa cậu con trai Dalton
+                                    đến học tại một trường đại học bình dị, phủ đầy cây thường xuân.Nhưng ở đây cậu lại có giấc mơ kì
+                                    lạ về con quỷ với cánh cửa đỏ.
+                                </div>
+                                <div class="item-action top-down delay-6">
+
+                                    <a href="@Url.Action("Details", "Movies", new { id = 8 })" class="btn btn-hover">
+                                        <i class="bx bxs-right-arrow"></i>
+                                        <button style="margin-top:5px;width:100px;height:30px" >MUA VÉ</button>
+
+                                    </a>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <main>
+                        <div id="status-show">
+                            <div class="title">
+                                <h2>PHIM ĐANG CHIẾU</h2>
+                            </div>
+                            <div class="products">
+                                @foreach (var item in Model)
+                                {
+                                    if (item.status == 1)
+                                    {
+                                        <div class="product">
+                                            <img src="~/wwwroot/upload/img/movies/@item.img" />
+
+                                            <h2>@Html.DisplayFor(modelItem => item.name)</h2>
+                                            <h2><span>C @Html.DisplayFor(modelItem => item.ageallow)+</span></h2>
+                                            <a href="@Url.Action("Details", "Movies", new { id = item.id })">
+                                                <button class="buy">MUA VÉ</button>
+                                            </a>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <div id="status-show-upcoming" >
+                            <div class="title">
+                                <h2>PHIM SẮP CHIẾU</h2>
+                            </div>
+
+                            <div class="products">
+                                @foreach (var item in Model)
+                                {
+                                    if (item.status == 0)
+                                    {
+                                        <div class="product">
+                                            <img src="~/wwwroot/upload/img/movies/@item.img" />
+                                            <h2>@Html.DisplayFor(modelItem => item.name)</h2>
+                                            <h2><span>C @Html.DisplayFor(modelItem => item.ageallow)+</span></h2>
+                                            <a href="@Url.Action("Details", "Movies", new { id = item.id })">
+                                                <button class="buy">MUA VÉ</button>
+                                            </a>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                            </div>
+                    </main>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+

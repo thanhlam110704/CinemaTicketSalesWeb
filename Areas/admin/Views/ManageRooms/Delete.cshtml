@@ -1,0 +1,60 @@
+﻿@model CinemaWeb.Models.Room
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">Xoá rạp chiếu phim</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/admin">Trang Chủ</a></li>
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index", "ManageRooms")">Rạp phim</a></li>
+                    <li class="breadcrumb-item active">Xoá rạp chiếu phim</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /.container-fluid -->
+<!-- /.content-header -->
+<!-- Main content -->
+<section class="content">
+    <div class="card card-danger">
+        <div class="card-header">
+            <h3 class="card-title">Thông tin rạp chiếu</h3>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <div class="form-group">
+            <div class="card-body">
+                <div class="form-group">
+                    <label>Tên rạp:&nbsp;&nbsp;</label>
+                    @Html.DisplayFor(model => model.name)
+                </div>
+            </div>
+            <!-- /.card-body -->
+        </div>
+    </div>
+    <div class="content-header">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Xoá" class="btn btn-danger" />
+                <a href="@Url.Action("Index", "ManageRooms")">
+                    <button type="button" class="btn btn-outline-dark">Quay về</button>
+                </a>
+            </div>
+        }
+
+    </div>
+
+</section>

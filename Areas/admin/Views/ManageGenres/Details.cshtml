@@ -1,0 +1,54 @@
+﻿@model CinemaWeb.Models.Genre
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">Chi tiết thể loại phim/h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/admin">Trang Chủ</a></li>
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index", "ManageGenres")">Thể loại phim</a></li>
+                    <li class="breadcrumb-item active">Chi tiết thể loại phim</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /.container-fluid -->
+<!-- /.content-header -->
+<!-- Main content -->
+<section class="content">
+    <div class="card card-indigo" id="main-card">
+        <div class="card-header">
+            <h3 class="card-title">Thông tin thể loại</h3>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <div class="form-group">
+            <div class="card-body">
+                <div class="form-group">
+                        <label>Tên thể loại:&nbsp;&nbsp;</label>
+                        @Html.DisplayFor(model => model.name)
+            </div>
+            <!-- /.card-body -->
+        </div>
+    </div>
+
+    <div class="content-header">
+        <a href="@Url.Action("Edit", "ManageGenres", new { id = Model.id })">
+            <button type="button" class="btn btn-warning">Chỉnh sửa</button>
+        </a>
+        <a href="@Url.Action("Index", "ManageGenres")">
+            <button type="button" class="btn btn-outline-dark">Quay về</button>
+        </a>
+    </div>
+
+</section>
