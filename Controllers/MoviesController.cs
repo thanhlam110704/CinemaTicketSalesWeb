@@ -8,6 +8,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CinemaWeb.Models;
+using System.Web.Configuration;
+using CinemaWeb.Models.ViewModel;
 
 namespace CinemaWeb.Controllers
 {
@@ -31,6 +33,31 @@ namespace CinemaWeb.Controllers
             }
 
             return View("Details", movie);
+        }
+
+        [HttpGet]
+        public JsonResult Search(string keyword)
+        {
+            try
+            {
+                var movieResults = db.Movies
+                    .AsNoTracking()
+                    .Where(movie =>
+                        movie.name.ToLower().Contains(keyword.ToLower()) ||
+                        movie.MovieGenres.Any(mg => mg.Genre.name.ToLower().Contains(keyword.ToLower()))
+                    )
+                    .ToList();
+
+                // Chuyển đổi danh sách Movie thành danh sách MovieDTO
+                var movieDTOs = MovieMapper.MapToDTOList(movieResults);
+
+                return Json(new { data = movieDTOs }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                // Ghi log lỗi
+                return Json(new { success = false });
+            }
         }
     }
 }

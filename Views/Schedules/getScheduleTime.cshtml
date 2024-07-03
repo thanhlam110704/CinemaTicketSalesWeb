@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<CinemaWeb.Models.ScheduleTime>
-
+@{
+    var customer = Session["Customer"] as CinemaWeb.Models.Account;
+}
 <div class="choose-time" id="@ViewBag.id">
     <table>
         <tr>
@@ -7,11 +9,14 @@
             <td rowspan="3">2D</td>
         </tr>
         <tr>
-            @foreach (var item in Model)
+            @foreach (var item in Model )
             {
-
                 <td>
-                    <p><a href="~/Seats/Index">@item.time.ToString(@"hh\:mm")</a></p>
+                    <p>
+                        <a href="~/Seats/Index?id_scheduletime=@item.id">
+                            @item.time.ToString(@"hh\:mm")
+                        </a>
+                    </p>
                 </td>
 
             }

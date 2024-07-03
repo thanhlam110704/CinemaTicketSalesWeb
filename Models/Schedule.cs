@@ -17,7 +17,6 @@ namespace CinemaWeb.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Schedule()
         {
-            this.Tickets = new HashSet<Ticket>();
             this.ScheduleTimes = new HashSet<ScheduleTime>();
         }
     
@@ -25,11 +24,10 @@ namespace CinemaWeb.Models
         public System.DateTime date { get; set; }
         public int id_room { get; set; }
         public int id_movie { get; set; }
-        public string dateofweek {get; set; }
+        public string dateofweek { get; set; }
+    
         public virtual Movie Movie { get; set; }
         public virtual Room Room { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Ticket> Tickets { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ScheduleTime> ScheduleTimes { get; set; }
     }

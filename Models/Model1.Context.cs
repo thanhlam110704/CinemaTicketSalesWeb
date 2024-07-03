@@ -18,6 +18,7 @@ namespace CinemaWeb.Models
         public QLCinemaWebEntities()
             : base("name=QLCinemaWebEntities")
         {
+
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -32,8 +33,8 @@ namespace CinemaWeb.Models
         public virtual DbSet<MovieGenre> MovieGenres { get; set; }
         public virtual DbSet<Room> Rooms { get; set; }
         public virtual DbSet<Schedule> Schedules { get; set; }
+        public virtual DbSet<ScheduleTime> ScheduleTimes { get; set; }
         public virtual DbSet<Seat> Seats { get; set; }
         public virtual DbSet<Ticket> Tickets { get; set; }
-        public virtual DbSet<ScheduleTime> ScheduleTimes { get; set; }
     }
 }

@@ -23,12 +23,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark">Khách hàng</h1>
+                <h1 class="m-0 text-dark">Tài khoản</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="/admin">Trang Chủ</a></li>
-                    <li class="breadcrumb-item active">Khách hàng</li>
+                    <li class="breadcrumb-item active">Tài khoản</li>
                 </ol>
             </div>
         </div>
@@ -42,7 +42,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Danh sách khách hàng</h3>
+                    <h3 class="card-title">Tài khoản</h3>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
@@ -59,6 +59,7 @@
                                 <th>STT</th>
                                 <th>Email</th>
                                 <th>Mật khẩu</th>
+                                <th>Quyền</th>
                                 <th>Reset mật khẩu</th>
                             </tr>
                         </thead>
@@ -75,6 +76,9 @@
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.password)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.role)
                                     </td>
                                     <td>
                                         @Html.ActionLink("Reset Mật Khẩu", "ResetPassword", new { id = item.id }, new { @class = "btn btn-danger" })

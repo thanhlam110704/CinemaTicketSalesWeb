@@ -44,7 +44,7 @@ namespace CinemaWeb.Areas.admin.Controllers
 
             return RedirectToAction("Index");
         }
-
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -1,210 +1,278 @@
-﻿@{
+﻿
+@{
     ViewBag.Title = "_Layout";
-    var customer = Session["Customer"];
+    var customer = Session["Customer"] as CinemaWeb.Models.Account;
 }
 
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Index</title>
-        <link rel="stylesheet" href="~/CSS/style.css">
-        <link rel="stylesheet" href="~/CSS/grid.css">
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    </head>
-    <body>
-        <header>
-            <div class="menu">
-                <a href="~/Home/Index" class="logo">
-                    <i class='bx bx-movie-play bx-tada main-color'></i>Fl<span class="main-color">e</span>x
-                </a>
-                <div class="main-menu">
-                    <ul>
-                        <li><a href="~/Home/Index">Trang chủ</a></li>
-                        <li class="now-playing">
-                            <a href="#status-show">Phim đang chiếu</a>
-                        </li>
-                        <li class="upcoming">
-                            <a href="#status-show-upcoming">Phim sắp chiếu</a>
-                        </li>
-                        <li><a href="~/Home/Contact">Liên Hệ </a></li>
-                        <li>
-                            <div class="parent">
-                                <input class="input" type="search" placeholder="Search..." style="padding: unset; width: unset;padding-left: 5px;" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+    <!--CSS-->
+    <link rel="stylesheet" href="~/CSS/style.css">
+    <link rel="stylesheet" href="~/CSS/grid.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <!--JS-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="menu">
+            <a href="~/Home/Index" class="logo">
+                <i class='bx bx-movie-play bx-tada main-color'></i>Fl<span class="main-color">e</span>x
+            </a>
+            <div class="main-menu">
+                <ul>
+                    <li><a href="~/Home/Index">Trang chủ</a></li>
+                    <li class="now-playing">
+                        <a href="#status-show">Phim đang chiếu</a>
+                    </li>
+                    <li class="upcoming">
+                        <a href="#status-show-upcoming">Phim sắp chiếu</a>
+                    </li>
+                    <li><a href="~/Home/Contact">Liên Hệ </a></li>
+                    <li>
+                        <div class="parent">
+                            <input type="text" id="searchInput" placeholder="Tìm kiếm phim hoặc thể loại..." style="padding: 7px; width: unset;display:unset" />
+                            <div id="searchResultsContainer" class="dropdown" style=" width: 211px;">
+                                <ul id="searchResults" class="dropdown-menu" role="menu" aria-labelledby="searchButton">
+                                    <!-- Kết quả tìm kiếm sẽ hiển thị ở đây -->
+                                </ul>
+                            </div>
 
-                                <button class="btn-search">
-                                    <i class="fa-solid fa-magnifying-glass"></i>
-                                </button>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="search" style="font-weight: 600 ">
-                    @if (customer != null)
-                    {
-                    
-                        <div class="dropdown">
-                            <button class="dropbtn" onclick="myFunction()">
-                                Account
-                                <i class="fa fa-caret-down" ></i>
-                            </button>
-                            <div class="dropdown-content" id="myDropdown">
-                                <a href="/doi-mat-khau" class="dropdown-item">
-                                    Profile
-                                </a>
-                               
-                                <a href="/lich-su-dat-hang" class="dropdown-item">
-                                    Lịch sử đặt hàng
-                                </a>
-                                <form id="logoutForm" action="@Url.Action("Logout", "Account")" method="post">
-                                    @Html.AntiForgeryToken()
-                                    <a class="dropdown-item" onclick="document.getElementById('logoutForm').submit();" style="cursor: pointer">
-                                        Đăng xuất
-                                    </a>
-                                </form>
-                            </div>
+
                         </div>
-                  
-                    }
-                    else
-                    {
 
-                    <a href="~/Account/Login" class="signin">
-                    <span>Sign in</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="account" style="font-weight: 600 ">
+                @if (customer != null)
+                {
+
+                    <div class="dropdown">
+                        <button class="dropbtn" onclick="myFunction()">
+                            Hi, @customer.name
+
+                            <i class="fa fa-caret-down"></i>
+                        </button>
+                        <div class="dropdown-content" id="myDropdown">
+
+                            <a href="@Url.Action("History", "Bills", new { customerId = @customer.id })" class="dropdown-item">
+                                Lịch sử đặt hàng
+                            </a>
+                            <form id="logoutForm" action="@Url.Action("Logout", "Account")" method="post">
+                                @Html.AntiForgeryToken()
+                                <a class="dropdown-item" onclick="document.getElementById('logoutForm').submit();" style="cursor: pointer">
+                                    Đăng xuất
+                                </a>
+                            </form>
+                        </div>
+                    </div>
+
+                }
+                else
+                {
+
+                    <a href="~/Account/Login" class="signin-span">
+                        <span>Đăng nhập</span>
                     </a>
                     <a href="#" class="">
-                     <span>/</span>
+                        <span>/</span>
                     </a>
-                    <a href="~/Account/Register" class="signup">
-                        <span>Sign up</span>
+                    <a href="~/Account/Register" class="signup-span">
+                        <span>Đăng ký</span>
                     </a>
 
-                    }
-                </div>
+                }
             </div>
-        </header>
-        @RenderBody()
-   
-        <footer class="section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-4 col-md-6 col-sm-12">
-                        <div class="content ">
-                           
-                            <p class="mrt20">
-                                <a href="#" class="logo">
-                                    <i></i>Fl<span class="main-color">e</span>x
-                                </a>
-                            </p>
-                            <p class="mrt20">
-                                FlexCinema là rạp chiếu phim đầu tiên và duy nhất tại khu vực quận 10 tính cho đến năm 2016.
-                            </p>
-                            <p class="mrt20">
-                                Chúng tôi tự hào với những dịch vụ tốt nhất mang lại cảm giác thoải mái và vui vẻ cho quý khách hàng.
-                            </p>
-
-                        </div>
-                    </div>
-                    <div class="col-8 col-md-6 col-sm-12">
-                        <div class="row">
-                            <div class="col-3 col-md-6 col-sm-6">
-                                <div class="content">
-                                    <p><b>Giới thiệu</b></p>
-                                    <ul class="footer-menu">
-                                        <li><a href="#">Về chúng tôi</a></li>
-                                        <li><a href="#">Chính sách</a></li>
-                                        <li><a href="#">Điều khoản</a></li>
-                                        <li><a href="#">Liên hệ</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-3 col-md-6 col-sm-6">
-                                <div class="content">
-                                    <p><b>Truy cập</b></p>
-                                    <ul class="footer-menu">
-                                        <li><a href="#">Về chúng tôi</a></li>
-                                        <li><a href="#">Chính sách</a></li>
-                                        <li><a href="#">Điều khoản</a></li>
-                                        <li><a href="#">Liên hệ</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-3 col-md-6 col-sm-6">
-                                <div class="content">
-                                    <p><b>Hỗ trợ</b></p>
-                                    <ul class="footer-menu">
-                                        <li><a href="#">Về chúng tôi</a></li>
-                                        <li><a href="#">Chính sách</a></li>
-                                        <li><a href="#">Điều khoản</a></li>
-                                        <li><a href="#">Liên hệ</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-3 col-md-6 col-sm-6">
-                                <div class="content">
-                                    <p><b>Kết nối với chúng tôi</b></p>
-                                    <div class="social-list">
-                                        <a href="#" class="social-item">
-                                            <i class="bx bxl-facebook"></i>
-                                        </a>
-                                        <a href="#" class="social-item">
-                                            <i class="bx bxl-twitter"></i>
-                                        </a>
-                                        <a href="#" class="social-item">
-                                            <i class="bx bxl-instagram"></i>
-                                        </a>
-                                    </div>
-                                    <ul class="footer-menu">
-                                        <li>
-                                            <a href="#">
-                                                <img src="~/IMG/icon.png" width="50%" height="50%" alt="">
-                                            </a>
-                                        </li>
-
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </footer>
-        
-        <div class="copyright">
-
-            <a>flexcinema.com</a>
         </div>
+    </header>
 
-        <script src="~/Scripts/signup_login.js"></script>
-        <script>
-         
-            function myFunction() {
-                document.getElementById("myDropdown").classList.toggle("show");
-            }
+    @RenderBody()
+    <footer class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-4 col-md-6 col-sm-12">
+                    <div class="content ">
 
-          
-            window.onclick = function (e) {
-                if (!e.target.matches('.dropbtn')) {
-                    var myDropdown = document.getElementById("myDropdown");
-                    if (myDropdown.classList.contains('show')) {
-                        myDropdown.classList.remove('show');
-                    }
+                        <p class="mrt20">
+                            <a href="#" class="logo">
+                                <i></i>Fl<span class="main-color">e</span>x
+                            </a>
+                        </p>
+                        <p class="mrt20">
+                            FlexCinema là rạp chiếu phim đầu tiên và duy nhất tại khu vực quận 10 tính cho đến năm 2016.
+                        </p>
+                        <p class="mrt20">
+                            Chúng tôi tự hào với những dịch vụ tốt nhất mang lại cảm giác thoải mái và vui vẻ cho quý khách hàng.
+                        </p>
+
+                    </div>
+                </div>
+                <div class="col-8 col-md-6 col-sm-12">
+                    <div class="row">
+                        <div class="col-3 col-md-6 col-sm-6">
+                            <div class="content">
+                                <p><b>Giới thiệu</b></p>
+                                <ul class="footer-menu">
+                                    <li><a href="#">Về chúng tôi</a></li>
+                                    <li><a href="#">Chính sách</a></li>
+                                    <li><a href="#">Điều khoản</a></li>
+                                    <li><a href="#">Liên hệ</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-3 col-md-6 col-sm-6">
+                            <div class="content">
+                                <p><b>Truy cập</b></p>
+                                <ul class="footer-menu">
+                                    <li><a href="#">Về chúng tôi</a></li>
+                                    <li><a href="#">Chính sách</a></li>
+                                    <li><a href="#">Điều khoản</a></li>
+                                    <li><a href="#">Liên hệ</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-3 col-md-6 col-sm-6">
+                            <div class="content">
+                                <p><b>Hỗ trợ</b></p>
+                                <ul class="footer-menu">
+                                    <li><a href="#">Về chúng tôi</a></li>
+                                    <li><a href="#">Chính sách</a></li>
+                                    <li><a href="#">Điều khoản</a></li>
+                                    <li><a href="#">Liên hệ</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-3 col-md-6 col-sm-6">
+                            <div class="content">
+                                <p><b>Kết nối với chúng tôi</b></p>
+                                <div class="social-list">
+                                    <a href="#" class="social-item">
+                                        <i class="bx bxl-facebook"></i>
+                                    </a>
+                                    <a href="#" class="social-item">
+                                        <i class="bx bxl-twitter"></i>
+                                    </a>
+                                    <a href="#" class="social-item">
+                                        <i class="bx bxl-instagram"></i>
+                                    </a>
+                                </div>
+                                <ul class="footer-menu">
+                                    <li>
+                                        <a href="#">
+                                            <img src="~/IMG/icon.png" width="50%" height="50%" alt="">
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div class="copyright">
+
+        <a>flexcinema.com</a>
+    </div>
+    
+    <script>
+        //xử lý roll đến phim đang chiếu / sắp chiếu
+        function myFunction() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+
+        window.onclick = function (e) {
+            if (!e.target.matches('.dropbtn')) {
+                var myDropdown = document.getElementById("myDropdown");
+                if (myDropdown.classList.contains('show')) {
+                    myDropdown.classList.remove('show');
                 }
             }
-            const movieList = document.querySelector(".movie-list");
-            const movieDetail = document.querySelector(".movie-detail");
+        }
+        const movieList = document.querySelector(".movie-list");
+        const movieDetail = document.querySelector(".movie-detail");
 
-            movieList.addEventListener("click", function (event) {
-                const movieLink = event.target;
-                const movieClass = movieLink.classList.contains("now-playing") ? "now-playing" : "upcoming";
-                movieDetail.appendChild(movie);
-                movie.scrollIntoView({ behavior: "smooth" });
+        movieList.addEventListener("click", function (event) {
+            const movieLink = event.target;
+            const movieClass = movieLink.classList.contains("now-playing") ? "now-playing" : "upcoming";
+            movieDetail.appendChild(movie);
+            movie.scrollIntoView({ behavior: "smooth" });
+        });
+
+    </script>
+    <script>
+        $(document).ready(function () {
+            // ...
+
+            $('#searchInput').on('input', function () {
+                searchMovies();
+                toggleDropdown(true); // Hiển thị dropdown khi bắt đầu nhập
             });
-        </script>
-    </body>
-    </html>
- 
+
+            function searchMovies() {
+                const query = encodeURIComponent($('#searchInput').val().trim());
+
+                // Sử dụng Ajax để gửi yêu cầu tìm kiếm đến server
+                $.ajax({
+                    url: `/Movies/Search?keyword=${query}`,
+                    dataType: "json",
+                    type: "GET",
+                    contentType: 'application/json; charset=utf-8',
+                    async: true,
+                    processData: false,
+                    cache: false,
+                    success: function (data) {
+                        console.log(data)
+                        displayResults(data.data);
+                        toggleDropdown(data.data.length > 0);
+                    },
+                    error: function () {
+                        alert('Something went wrong! Please try again later!');
+                    }
+                });
+            }
+
+            function toggleDropdown(show) {
+                const searchResultsContainer = $('#searchResultsContainer');
+                const duration = 200; // thời gian hiệu ứng trong milliseconds (0.3 giây)
+
+                if (show) {
+                    // Sử dụng slideDown để hiển thị dropdown với hiệu ứng trượt xuống
+                    searchResultsContainer.slideDown(duration);
+                } else {
+                    // Sử dụng slideUp để ẩn dropdown với hiệu ứng trượt lên
+                    searchResultsContainer.slideUp(duration);
+                }
+            }
+
+
+            function displayResults(results) {
+                const searchResults = $('#searchResults');
+                searchResults.empty();
+
+                if (results.length > 0) {
+                    results.forEach(item => {
+                        const li = `<a href="/Movies/Details/${item.Id}">${item.Name}</a>`;
+                        searchResults.append(li);
+                    });
+                } else {
+                    searchResults.append('');
+                }
+            }
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+</body>
+</html>
+

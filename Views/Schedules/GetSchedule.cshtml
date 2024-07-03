@@ -1,26 +1,28 @@
 ﻿@model IEnumerable<CinemaWeb.Models.Schedule>
 @foreach (var item in Model)
 {
-    <div class="choose-movie">
-        <div class="choose-cinema">
-            <table border="0">
-                <thead>
-                    <tr>
-                        <td>
-                            <i class='bx bx-movie-play bx-tada main-color'></i>Fl<span class="main-color">e</span>x
-                        </td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>@item.dateofweek</td>
-                    </tr>
-                    <tr>
-                        <td>Ngày @item.date.ToString("dd/MM/yyyy")</td>
-                    </tr>
-                </tbody>
-            </table>
+ 
+        <div class="choose-movie">
+            <div class="choose-cinema">
+                <table border="0">
+                    <thead>
+                        <tr>
+                            <td>
+                                <i class='bx bx-movie-play bx-tada main-color'></i>Fl<span class="main-color">e</span>x
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>@item.dateofweek</td>
+                        </tr>
+                        <tr>
+                            <td>Ngày @item.date.ToString("dd/MM/yyyy")</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            @Html.Action("getScheduleTime", "Schedules", new { id = item.id })
         </div>
-        @Html.Action("getScheduleTime", "Schedules", new { id = item.id })
-    </div>
+   
 }

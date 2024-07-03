@@ -17,11 +17,11 @@ namespace CinemaWeb.Models
         public int id { get; set; }
         public int price { get; set; }
         public int status { get; set; }
-        public int seat_id { get; set; }
         public int id_bill { get; set; }
-        public int id_schedule { get; set; }
+        public int id_scheduletime { get; set; }
+        public string seat { get; set; }
     
         public virtual Bill Bill { get; set; }
-        public virtual Schedule Schedule { get; set; }
+        public virtual ScheduleTime ScheduleTime { get; set; }
     }
 }

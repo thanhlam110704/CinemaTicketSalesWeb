@@ -27,7 +27,7 @@
 <!-- /.content-header -->
 <!-- Main content -->
 <section class="content">
-    @using (Html.BeginForm("Edit", "ManageScheduleTimes", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("Edit", "ManageSeats", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
 
@@ -51,7 +51,7 @@
                                     @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
                                 </div>
                                 <div class="col-3">
-                                    <label for="type" style="align-self: end">Chọn lịch chiếu</label>
+                                    <label for="type" style="align-self: end">Loại</label>
                                     @Html.EditorFor(model => model.type, new { htmlAttributes = new { @class = "form-control" } })
                                     @Html.ValidationMessageFor(model => model.type, "", new { @class = "text-danger" })
                                 </div>
@@ -61,12 +61,13 @@
                                     @Html.ValidationMessageFor(model => model.price, "", new { @class = "text-danger" })
                                 </div>
                                 <div class="col-3">
-                                    <label for="type" style="align-self: end">Số lượng</label>
+                                    <label for="quantity" style="align-self: end">Số lượng</label>
                                     @Html.EditorFor(model => model.quality, new { htmlAttributes = new { @class = "form-control" } })
                                     @Html.ValidationMessageFor(model => model.quality, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
+
                         <div class="row form-group">
                             <div class="row">
                                     <label for="id_room" style="align-self: end">Rạp </label>
@@ -83,7 +84,7 @@
 
         <div class="content-header">
             <button type="submit" class="btn btn-warning">Lưu</button>
-            <a href="@Url.Action("Index", "ManageScheduleTimes")">
+            <a href="@Url.Action("Index", "ManageSeats")">
                 <button type="button" class="btn btn-dark">Quay về</button>
             </a>
         </div>

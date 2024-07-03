@@ -4,26 +4,26 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="354f6b1113a545049bdbe82d917917c5" Name="Diagram1">
-        <EntityTypeShape EntityType="QLCinemaWebModel.Account" Width="1.5" PointX="0.75" PointY="11" IsExpanded="true" />
-        <EntityTypeShape EntityType="QLCinemaWebModel.Bill" Width="1.5" PointX="3" PointY="11" IsExpanded="true" />
-        <EntityTypeShape EntityType="QLCinemaWebModel.Genre" Width="1.5" PointX="0.75" PointY="14.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="QLCinemaWebModel.Movie" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="QLCinemaWebModel.MovieGenre" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
-        <EntityTypeShape EntityType="QLCinemaWebModel.Room" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="QLCinemaWebModel.Schedule" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QLCinemaWebModel.Seat" Width="1.5" PointX="3" PointY="7.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="QLCinemaWebModel.Ticket" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
-        <AssociationConnector Association="QLCinemaWebModel.Bill_idAccount_fk" ManuallyRouted="false" />
-        <AssociationConnector Association="QLCinemaWebModel.Ticket_idBill_fk" ManuallyRouted="false" />
-        <AssociationConnector Association="QLCinemaWebModel.Movie_Genre_idGenre_fk" ManuallyRouted="false" />
-        <AssociationConnector Association="QLCinemaWebModel.Movie_Genre_idMovie_fk" ManuallyRouted="false" />
-        <AssociationConnector Association="QLCinemaWebModel.Schedule_idMovie_fk" ManuallyRouted="false" />
-        <AssociationConnector Association="QLCinemaWebModel.Schedule_idRoom_fk" ManuallyRouted="false" />
-        <AssociationConnector Association="QLCinemaWebModel.Seat_idRoom_fk" ManuallyRouted="false" />
-        <AssociationConnector Association="QLCinemaWebModel.Ticket_idSchedule_fk" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="QLCinemaWebModel.ScheduleTime" Width="1.5" PointX="5.25" PointY="4.125" />
+      <Diagram DiagramId="354f6b1113a545049bdbe82d917917c5" Name="Diagram1" ZoomLevel="64">
+        <EntityTypeShape EntityType="QLCinemaWebModel.Account" Width="1.5" PointX="9.25" PointY="6" />
+        <EntityTypeShape EntityType="QLCinemaWebModel.Bill" Width="1.5" PointX="11.75" PointY="3.25" />
+        <EntityTypeShape EntityType="QLCinemaWebModel.Genre" Width="1.5" PointX="0.75" PointY="7.125" />
+        <EntityTypeShape EntityType="QLCinemaWebModel.Movie" Width="1.5" PointX="0.75" PointY="3.25" />
+        <EntityTypeShape EntityType="QLCinemaWebModel.MovieGenre" Width="1.5" PointX="3" PointY="0.75" />
+        <EntityTypeShape EntityType="QLCinemaWebModel.Room" Width="1.5" PointX="6.375" PointY="4.875" />
+        <EntityTypeShape EntityType="QLCinemaWebModel.Schedule" Width="1.5" PointX="3" PointY="3.5" />
+        <EntityTypeShape EntityType="QLCinemaWebModel.ScheduleTime" Width="1.5" PointX="5.125" PointY="0.75" />
+        <EntityTypeShape EntityType="QLCinemaWebModel.Seat" Width="1.5" PointX="4" PointY="6.625" />
+        <EntityTypeShape EntityType="QLCinemaWebModel.Ticket" Width="1.5" PointX="8" PointY="0.5" />
+        <AssociationConnector Association="QLCinemaWebModel.Bill_idAccount_fk" />
+        <AssociationConnector Association="QLCinemaWebModel.Ticket_idBill_fk" />
+        <AssociationConnector Association="QLCinemaWebModel.Movie_Genre_idGenre_fk" />
+        <AssociationConnector Association="QLCinemaWebModel.Movie_Genre_idMovie_fk" />
+        <AssociationConnector Association="QLCinemaWebModel.Schedule_idMovie_fk" />
+        <AssociationConnector Association="QLCinemaWebModel.Schedule_idRoom_fk" />
+        <AssociationConnector Association="QLCinemaWebModel.Seat_idRoom_fk" />
         <AssociationConnector Association="QLCinemaWebModel.ScheduleTime_idSchedule_fk" />
+        <AssociationConnector Association="QLCinemaWebModel.FK__Ticket__id_sched__628FA481" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

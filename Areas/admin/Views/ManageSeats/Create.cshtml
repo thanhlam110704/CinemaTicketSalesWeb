@@ -27,7 +27,7 @@
 <!-- /.content-header -->
 <!-- Main content -->
 <section class="content">
-    @using (Html.BeginForm("Create", "ManageScheduleSeats", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("Create", "ManageSeats", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
 
@@ -82,7 +82,7 @@
 
         <div class="content-header">
             <button type="submit" class="btn btn-success">Thêm</button>
-            <a href="@Url.Action("Index", "ManageScheduleSeats")">
+            <a href="@Url.Action("Index", "ManageSeats")">
                 <button type="button" class="btn btn-dark">Quay về</button>
             </a>
         </div>

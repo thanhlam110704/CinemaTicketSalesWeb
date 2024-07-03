@@ -24,6 +24,7 @@ body {
     background-color: var(--body-bg);
     color: var(--text-color);
     padding-top: var(--nav-height);
+    text-align: center;
 }
 
 .menu {
@@ -36,9 +37,11 @@ body {
     
     
 }
-.parent {
-    position: relative;
-}
+
+
+   
+
+
 
 .input {
     width: 200px;
@@ -47,23 +50,15 @@ body {
     border-radius: 5px;
 }
 
-.btn-search {
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-    cursor: pointer;
-}
 
-.fa-magnifying-glass {
-    font-size: 18px;
-}
+
+
 .logo {
     width: 10%;
     float: left;
     height: 40px;
     padding-top: 22.5px;
-    padding-left: 0px;
+    padding-left: 21px;
     padding-right: 0px;
 }
     
@@ -76,6 +71,7 @@ body {
 }
 
 .container {
+    margin-top:50px;
     padding-right: 15px;
     padding-left: 15px;
     margin-right: auto;
@@ -88,16 +84,14 @@ body {
     width: 70%;
     float: left;
     height: 80px;
-    padding: 10px;
-    margin-top: 10px;
+    padding: 18px;
+    margin-top: 18px;
 }
 
-.main-menu ul li {
-    padding-top: 20px;
-    list-style: none;
-    display: inline-block;
-    
-}
+    .main-menu ul li {
+        list-style: none;
+        display: inline-block;
+    }
 
     .main-menu ul li a {
         text-decoration: none;
@@ -110,15 +104,14 @@ body {
     color: #c0392b;
 }
 
-.search {
-    margin-top: 15px;
+.account {
     width: 20%;
     float: left;
     padding: 18px;
-    margin-top:22.5px;
+    margin-top: 21px;
 }
 
-    .search .span {
+    .account .span {
         font-family: 'Poppins', sans-serif;
         font-size: 18px;
     }
@@ -161,7 +154,7 @@ main .title h2 {
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
-    
+  
 }
 
     .dropdown-content a {
@@ -173,6 +166,7 @@ main .title h2 {
         text-align: left;
         border: 1px solid black;
         font-weight:600;
+
     }
 
         .dropdown-content a:hover {
@@ -182,6 +176,74 @@ main .title h2 {
 .show {
     display: block;
 }
+/* Add this style to the head of your HTML file or include it in your existing stylesheet */
+.parent {
+    position: relative;
+    display: inline-block;
+}
+
+    .parent input[type="search"] {
+        padding: 4px;
+        width: unset;
+    }
+
+
+#searchInput {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 200px;
+    font-size: 16px;
+}
+
+
+#searchResults {
+    width: 211px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 0px 8px #ddd;
+    border-radius: 10px;
+    margin-top: 1rem;
+    max-height: 300px;
+    color: black;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+}
+#searchResultsContainer {
+    position: absolute;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: none; /* Ban đầu ẩn dropdown */
+}
+
+#searchResults {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+    #searchResults a {
+        display: block;
+        padding: 10px;
+        text-decoration: none;
+        color: black;
+        border-bottom: 1px solid #eee;
+        transition: background-color 0.3s ease;
+        font-size: 11px;
+        border: 1px solid black;
+    }
+
+        #searchResults a:hover {
+            background-color: #f5f5f5;
+        }
+
+
 
 /********************************* product *******************************************/
 .products {
@@ -645,11 +707,6 @@ h1 {
     /* Đổi màu nếu ghế được chọn */
 }
 
-body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    margin: 20px;
-}
 
 h1 {
     color: #333;

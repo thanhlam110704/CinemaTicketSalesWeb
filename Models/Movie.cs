@@ -11,16 +11,23 @@ namespace CinemaWeb.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Configuration;
+    using System.Data.Entity;
+
     public partial class Movie
     {
+        
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Movie()
         {
+            
             this.MovieGenres = new HashSet<MovieGenre>();
             this.Schedules = new HashSet<Schedule>();
+
+
         }
-    
+   
         public int id { get; set; }
         public string name { get; set; }
         public string img { get; set; }

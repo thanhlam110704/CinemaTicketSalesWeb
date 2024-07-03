@@ -14,10 +14,18 @@ namespace CinemaWeb.Models
     
     public partial class ScheduleTime
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ScheduleTime()
+        {
+            this.Tickets = new HashSet<Ticket>();
+        }
+    
         public int id { get; set; }
         public System.TimeSpan time { get; set; }
         public int id_schedule { get; set; }
     
         public virtual Schedule Schedule { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Ticket> Tickets { get; set; }
     }
 }

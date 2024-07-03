@@ -9,6 +9,7 @@ using System.Data.Entity;
 
 namespace CinemaWeb.Controllers
 {
+   
     public class HomeController : Controller
     {
         public QLCinemaWebEntities db = new QLCinemaWebEntities();
@@ -31,22 +32,9 @@ namespace CinemaWeb.Controllers
             return View();
 
         }
-        public ActionResult Seat()
-        {
-            return View();
-        }
-        public ActionResult Login()
-        {
-            return View();
-        }
-        public ActionResult Register()
-        {
-            return View();
-        }
-        public ActionResult Test()
-        {
-            return View();
-        }
+        
+
+
 
     }
 }

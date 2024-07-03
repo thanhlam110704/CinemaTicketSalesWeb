@@ -14,10 +14,12 @@ namespace CinemaWeb.Models
     
     public partial class MovieGenre
     {
+
         public int id { get; set; }
         public int id_movie { get; set; }
         public int id_genre { get; set; }
-    
+        
+
         public virtual Genre Genre { get; set; }
         public virtual Movie Movie { get; set; }
     }

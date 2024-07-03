@@ -84,7 +84,7 @@ h2 {
 
 body {
     font-size: 13px;
-    line-height: 1.8;
+  
     font-weight: 400;
 }
 
@@ -214,7 +214,7 @@ figure {
   .form-group:last-child {
     margin-bottom: 0px; }
 
-input {
+ input {
     width: 100%;
     display: block;
     border: none;

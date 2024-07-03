@@ -4,18 +4,12 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var customer = Session["Customer"];
+    var scheduleTimeId = ViewBag.ScheduleTimeId;
+    var ticketInSchedule = ViewBag.Tickets;
 }
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Chọn ghế xem phim</title>
-    <style>
-    </style>
-</head>
 <body>
     <div class="screen">
-        <h1 style="margin-top:20px">SCREEN</h1>
+        <h1 style="margin-top:50px">SCREEN</h1>
     </div>
     <div id="seat-container">
         @foreach (var item in Model)
@@ -23,13 +17,36 @@
             <div class="seat-row">
                 @for (int seatNum = 1; seatNum <= item.quality; seatNum++)
                 {
+
                     var seatName = item.name + seatNum;
                     var seatType = item.type;
                     var seatPrice = item.price;
-                    <div class="seat" data-seat-name="@seatName" data-seat-type="@seatType" data-seat-price="@seatPrice">
-                        @seatName
-                    </div>
+                    var sold = false;
+
+                    foreach (var ticket in ticketInSchedule)
+                    {
+                        if (seatName.Equals(ticket.seat))
+                        {
+                            sold = true;
+                            break;
+                        }
+                    }
+
+                    if (sold)
+                    {
+                        <div class="seat selected" style="pointer-events: none;">
+                            @seatName
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="seat" data-seat-name="@seatName" data-seat-type="@seatType" data-seat-price="@seatPrice" data-seat-selected="false">
+                            @seatName
+                        </div>
+                    }
+
                 }
+
             </div>
         }
     </div>
@@ -37,16 +54,13 @@
         <h2>Giỏ hàng</h2>
         <div id="cart-total">
             <div>Số ghế: <span id="seat-count">0</span></div>
+            <div>Ghế đã chọn: <span id="selected-seats">N/A</span></div>
             <div>Loại ghế: <span id="seat-type">N/A</span></div>
             <div>Giá vé: $<span id="seat-price">0</span></div>
             <div>Tên phim: <span id="movie-name">Người</span></div>
             <div>Thời gian: <span id="movie-time">120 phút</span></div>
-            <div>Ghế đã chọn: <span id="selected-seats">N/A</span></div>
         </div>
-        <div id="login-notice" style="display: none;">
-            <p style="color: black" >Vui lòng đăng nhập để đặt vé.</p>
-        </div>
-        <button id="checkout-btn" onclick="checkLoginAndCheckout()">Đặt vé</button>
+        <button id="checkout-btn" onclick="performCheckout()">Đặt vé</button>
     </div>
 
     <script>
@@ -58,38 +72,37 @@
         const movieNameElement = document.getElementById('movie-name');
         const movieTimeElement = document.getElementById('movie-time');
         const selectedSeatsElement = document.getElementById('selected-seats');
-        const loginNotice = document.getElementById('login-notice');
+
 
         let selectedSeats = [];
 
         function selectSeat(event) {
             const seat = event.target;
             if (seat.classList.contains('seat')) {
+                const isBooked = seat.getAttribute('data-seat-selected') === 'true';
                 const seatName = seat.getAttribute('data-seat-name');
 
-                if (seat.classList.contains('selected')) {
-                    seat.classList.remove('selected');
-                    const index = selectedSeats.findIndex(seat => seat.seatName === seatName);
-                    if (index > -1) {
-                        selectedSeats.splice(index, 1);
-                    }
-                } else {
-                    if (selectedSeats.length < 8) {
-                        seat.classList.add('selected');
-                        const seatType = seat.getAttribute('data-seat-type');
-                        const seatPrice = parseFloat(seat.getAttribute('data-seat-price'));
-                        selectedSeats.push({ seatName, seatType, seatPrice });
+                if (!isBooked) {
+                    if (seat.classList.contains('selected')) {
+                        seat.classList.remove('selected');
+                        const index = selectedSeats.findIndex(seat => seat.seatName === seatName);
+                        if (index > -1) {
+                            selectedSeats.splice(index, 1);
+                        }
                     } else {
-                        alert('Bạn không thể chọn nhiều hơn 8 ghế một lúc!');
+                            seat.classList.add('selected');
+                            const seatType = seat.getAttribute('data-seat-type');
+                            const seatPrice = parseFloat(seat.getAttribute('data-seat-price'));
+                            selectedSeats.push({ seatName, seatType, seatPrice });
                     }
+                    updateCart();
                 }
-
-                updateCart();
             }
         }
 
+        let total;
         function updateCart() {
-            const total = selectedSeats.reduce((sum, seat) => sum + seat.seatPrice, 0);
+            total  = selectedSeats.reduce((sum, seat) => sum + seat.seatPrice, 0);
             seatCountElement.textContent = selectedSeats.length;
             seatTypeElement.textContent = selectedSeats.length > 0
                 ? selectedSeats.map(seat => (seat.seatType === '0' ? 'Thường' : 'VIP')).join(', ')
@@ -98,24 +111,51 @@
             selectedSeatsElement.textContent = selectedSeats.map(seat => seat.seatName).join(', ');
         }
 
-        function checkLoginAndCheckout() {
-            const customer = @Html.Raw(Json.Encode(Session["Customer"]));
-
-            if (customer == null) {
-                // Chưa đăng nhập, hiển thị thông báo yêu cầu đăng nhập
-                loginNotice.style.display = 'block';
-            } else {
-                // Đã đăng nhập, thực hiện đặt vé
-                performCheckout();
-            }
-        }
-
         function performCheckout() {
-            // Thực hiện đặt vé, ví dụ: gửi dữ liệu đặt vé đến máy chủ
-            alert('Bạn đã đặt vé thành công!');
+            if (selectedSeats.length === 0) {
+                return alert('Bạn chưa chọn ghế nào!');
+            }
+            let id_bill;
+            let id_scheduletime = @scheduleTimeId;
+            var messageAlert = '';
+            var success = true;
+            $.ajax({
+                url: '/Bills/Create',
+                type: 'POST',
+                data: { amount: total },
+                success: function (data) {
+                    if (data.success) {
+                        id_bill = data.newBill.id;
+                        selectedSeats.forEach(seat => {
+                            $.ajax({
+                                url: '/Tickets/Create',
+                                type: 'POST',
+                                data: { seat: seat.seatName, price: seat.seatPrice, id_bill: id_bill, id_scheduletime: id_scheduletime },
+                                success: function (data) {
+                                    messageAlert += seat.seatName + ', ';
+                                },
+                                error: function () {
+                                    messageAlert = 'Lỗi khi đặt vé';
+                                    success = false;
+                                }
+                            });
+                        })
+                    }
+                },
+                error: function () {
+                    messageAlert = 'Lỗi khi đặt vé';
+                    success = false;
+                }
+            });
+            if (success)
+            {
+                alert('Bạn đã đặt thành công: ' + messageAlert)
+                window.location.href = '/Home/Index';
+            } else { alert(messageAlert) }
+            alert(messageAlert);
+           
         }
 
         seatsContainer.addEventListener('click', selectSeat);
     </script>
 </body>
-</html>

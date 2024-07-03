@@ -22,11 +22,7 @@
 
 <body>
     <div class="container">
-        <div class="menu">
-            <a href="#" class="logo">
-                <i class='bx bx-movie-play bx-tada main-color'></i>Fl<span class="main-color">e</span>x
-            </a>
-        </div>
+      
         <div class="movie-main">
             <div class="movie-img">
                 <img src="~/wwwroot/upload/img/movies/@Model.img" alt="">
@@ -110,18 +106,25 @@
                     </tbody>
                 </table>
                 <div class="movie-main3">
-                    <button><a href="seat.html"> Mua vé</a></button>
+                    <button onclick="scrollToChonSuat()">Mua vé</button>
                     <button onclick="window.open('@Html.DisplayFor(model => model.trailer)', '_blank')">Xem trailer</button>
                 </div>
             </div>
         </div>
         <hr>
-        <h2 style="margin-top:20px">CHỌN SUẤT</h2>
+        <h2 id="chon-suat" style="margin-top:20px">CHỌN SUẤT</h2>
 
         @Html.Action("getSchedule", "Schedules", new { id = @Model.id})
         
         </div>
-        
+    <script>
+        function scrollToChonSuat() {
+            // Scroll to the "CHỌN SUẤT" section
+            document.getElementById('chon-suat').scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+    </script>
 </body>
 
 </html>

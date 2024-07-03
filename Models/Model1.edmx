@@ -94,9 +94,9 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="price" Type="int" Nullable="false" />
           <Property Name="status" Type="int" Nullable="false" />
-          <Property Name="seat_id" Type="int" Nullable="false" />
+          <Property Name="seat" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="id_bill" Type="int" Nullable="false" />
-          <Property Name="id_schedule" Type="int" Nullable="false" />
+          <Property Name="id_scheduletime" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="Bill_idAccount_fk">
           <End Role="Account" Type="Self.Account" Multiplicity="1" />
@@ -194,18 +194,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Ticket_idSchedule_fk">
-          <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
-          <End Role="Ticket" Type="Self.Ticket" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Schedule">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Ticket">
-              <PropertyRef Name="id_schedule" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="QLCinemaWebModelStoreContainer">
           <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Bill" EntityType="Self.Bill" Schema="dbo" store:Type="Tables" />
@@ -249,25 +237,69 @@
             <End Role="Bill" EntitySet="Bill" />
             <End Role="Ticket" EntitySet="Ticket" />
           </AssociationSet>
-          <AssociationSet Name="Ticket_idSchedule_fk" Association="Self.Ticket_idSchedule_fk">
-            <End Role="Schedule" EntitySet="Schedule" />
-            <End Role="Ticket" EntitySet="Ticket" />
-          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="QLCinemaWebModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="QLCinemaWebEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Accounts" EntityType="QLCinemaWebModel.Account" />
+          <EntitySet Name="Bills" EntityType="QLCinemaWebModel.Bill" />
+          <EntitySet Name="Genres" EntityType="QLCinemaWebModel.Genre" />
+          <EntitySet Name="Movies" EntityType="QLCinemaWebModel.Movie" />
+          <EntitySet Name="MovieGenres" EntityType="QLCinemaWebModel.MovieGenre" />
+          <EntitySet Name="Rooms" EntityType="QLCinemaWebModel.Room" />
+          <EntitySet Name="Schedules" EntityType="QLCinemaWebModel.Schedule" />
+          <EntitySet Name="ScheduleTimes" EntityType="QLCinemaWebModel.ScheduleTime" />
+          <EntitySet Name="Seats" EntityType="QLCinemaWebModel.Seat" />
+          <EntitySet Name="Tickets" EntityType="QLCinemaWebModel.Ticket" />
+          <AssociationSet Name="Bill_idAccount_fk" Association="QLCinemaWebModel.Bill_idAccount_fk">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="Bill" EntitySet="Bills" />
+          </AssociationSet>
+          <AssociationSet Name="Ticket_idBill_fk" Association="QLCinemaWebModel.Ticket_idBill_fk">
+            <End Role="Bill" EntitySet="Bills" />
+            <End Role="Ticket" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="Movie_Genre_idGenre_fk" Association="QLCinemaWebModel.Movie_Genre_idGenre_fk">
+            <End Role="Genre" EntitySet="Genres" />
+            <End Role="MovieGenre" EntitySet="MovieGenres" />
+          </AssociationSet>
+          <AssociationSet Name="Movie_Genre_idMovie_fk" Association="QLCinemaWebModel.Movie_Genre_idMovie_fk">
+            <End Role="Movie" EntitySet="Movies" />
+            <End Role="MovieGenre" EntitySet="MovieGenres" />
+          </AssociationSet>
+          <AssociationSet Name="Schedule_idMovie_fk" Association="QLCinemaWebModel.Schedule_idMovie_fk">
+            <End Role="Movie" EntitySet="Movies" />
+            <End Role="Schedule" EntitySet="Schedules" />
+          </AssociationSet>
+          <AssociationSet Name="Schedule_idRoom_fk" Association="QLCinemaWebModel.Schedule_idRoom_fk">
+            <End Role="Room" EntitySet="Rooms" />
+            <End Role="Schedule" EntitySet="Schedules" />
+          </AssociationSet>
+          <AssociationSet Name="Seat_idRoom_fk" Association="QLCinemaWebModel.Seat_idRoom_fk">
+            <End Role="Room" EntitySet="Rooms" />
+            <End Role="Seat" EntitySet="Seats" />
+          </AssociationSet>
+          <AssociationSet Name="ScheduleTime_idSchedule_fk" Association="QLCinemaWebModel.ScheduleTime_idSchedule_fk">
+            <End Role="Schedule" EntitySet="Schedules" />
+            <End Role="ScheduleTime" EntitySet="ScheduleTimes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ticket__id_sched__628FA481" Association="QLCinemaWebModel.FK__Ticket__id_sched__628FA481">
+            <End Role="ScheduleTime" EntitySet="ScheduleTimes" />
+            <End Role="Ticket" EntitySet="Tickets" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Account">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="password" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="role" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Bills" Relationship="Self.Bill_idAccount_fk" FromRole="Account" ToRole="Bill" />
+          <NavigationProperty Name="Bills" Relationship="QLCinemaWebModel.Bill_idAccount_fk" FromRole="Account" ToRole="Bill" />
         </EntityType>
         <EntityType Name="Bill">
           <Key>
@@ -277,31 +309,31 @@
           <Property Name="amount" Type="Int32" Nullable="false" />
           <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="id_account" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Account" Relationship="Self.Bill_idAccount_fk" FromRole="Bill" ToRole="Account" />
-          <NavigationProperty Name="Tickets" Relationship="Self.Ticket_idBill_fk" FromRole="Bill" ToRole="Ticket" />
+          <NavigationProperty Name="Account" Relationship="QLCinemaWebModel.Bill_idAccount_fk" FromRole="Bill" ToRole="Account" />
+          <NavigationProperty Name="Tickets" Relationship="QLCinemaWebModel.Ticket_idBill_fk" FromRole="Bill" ToRole="Ticket" />
         </EntityType>
         <EntityType Name="Genre">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="MovieGenres" Relationship="Self.Movie_Genre_idGenre_fk" FromRole="Genre" ToRole="MovieGenre" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MovieGenres" Relationship="QLCinemaWebModel.Movie_Genre_idGenre_fk" FromRole="Genre" ToRole="MovieGenre" />
         </EntityType>
         <EntityType Name="Movie">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="img" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="trailer" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="img" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="trailer" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="length_time" Type="Int32" Nullable="false" />
-          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="status" Type="Int32" Nullable="false" />
           <Property Name="ageallow" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="MovieGenres" Relationship="Self.Movie_Genre_idMovie_fk" FromRole="Movie" ToRole="MovieGenre" />
-          <NavigationProperty Name="Schedules" Relationship="Self.Schedule_idMovie_fk" FromRole="Movie" ToRole="Schedule" />
+          <NavigationProperty Name="MovieGenres" Relationship="QLCinemaWebModel.Movie_Genre_idMovie_fk" FromRole="Movie" ToRole="MovieGenre" />
+          <NavigationProperty Name="Schedules" Relationship="QLCinemaWebModel.Schedule_idMovie_fk" FromRole="Movie" ToRole="Schedule" />
         </EntityType>
         <EntityType Name="MovieGenre">
           <Key>
@@ -310,17 +342,17 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="id_movie" Type="Int32" Nullable="false" />
           <Property Name="id_genre" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Genre" Relationship="Self.Movie_Genre_idGenre_fk" FromRole="MovieGenre" ToRole="Genre" />
-          <NavigationProperty Name="Movie" Relationship="Self.Movie_Genre_idMovie_fk" FromRole="MovieGenre" ToRole="Movie" />
+          <NavigationProperty Name="Genre" Relationship="QLCinemaWebModel.Movie_Genre_idGenre_fk" FromRole="MovieGenre" ToRole="Genre" />
+          <NavigationProperty Name="Movie" Relationship="QLCinemaWebModel.Movie_Genre_idMovie_fk" FromRole="MovieGenre" ToRole="Movie" />
         </EntityType>
         <EntityType Name="Room">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Schedules" Relationship="Self.Schedule_idRoom_fk" FromRole="Room" ToRole="Schedule" />
-          <NavigationProperty Name="Seats" Relationship="Self.Seat_idRoom_fk" FromRole="Room" ToRole="Seat" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Schedules" Relationship="QLCinemaWebModel.Schedule_idRoom_fk" FromRole="Room" ToRole="Schedule" />
+          <NavigationProperty Name="Seats" Relationship="QLCinemaWebModel.Seat_idRoom_fk" FromRole="Room" ToRole="Seat" />
         </EntityType>
         <EntityType Name="Schedule">
           <Key>
@@ -330,22 +362,31 @@
           <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="id_room" Type="Int32" Nullable="false" />
           <Property Name="id_movie" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Movie" Relationship="Self.Schedule_idMovie_fk" FromRole="Schedule" ToRole="Movie" />
-          <NavigationProperty Name="Room" Relationship="Self.Schedule_idRoom_fk" FromRole="Schedule" ToRole="Room" />
-          <NavigationProperty Name="Tickets" Relationship="Self.Ticket_idSchedule_fk" FromRole="Schedule" ToRole="Ticket" />
+          <NavigationProperty Name="Movie" Relationship="QLCinemaWebModel.Schedule_idMovie_fk" FromRole="Schedule" ToRole="Movie" />
+          <NavigationProperty Name="Room" Relationship="QLCinemaWebModel.Schedule_idRoom_fk" FromRole="Schedule" ToRole="Room" />
           <NavigationProperty Name="ScheduleTimes" Relationship="QLCinemaWebModel.ScheduleTime_idSchedule_fk" FromRole="Schedule" ToRole="ScheduleTime" />
+        </EntityType>
+        <EntityType Name="ScheduleTime">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="time" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="id_schedule" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Schedule" Relationship="QLCinemaWebModel.ScheduleTime_idSchedule_fk" FromRole="ScheduleTime" ToRole="Schedule" />
+          <NavigationProperty Name="Tickets" Relationship="QLCinemaWebModel.FK__Ticket__id_sched__628FA481" FromRole="ScheduleTime" ToRole="Ticket" />
         </EntityType>
         <EntityType Name="Seat">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="price" Type="Int32" Nullable="false" />
           <Property Name="id_room" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Room" Relationship="Self.Seat_idRoom_fk" FromRole="Seat" ToRole="Room" />
           <Property Name="quality" Type="Int32" />
+          <NavigationProperty Name="Room" Relationship="QLCinemaWebModel.Seat_idRoom_fk" FromRole="Seat" ToRole="Room" />
         </EntityType>
         <EntityType Name="Ticket">
           <Key>
@@ -354,15 +395,15 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="price" Type="Int32" Nullable="false" />
           <Property Name="status" Type="Int32" Nullable="false" />
-          <Property Name="seat_id" Type="Int32" Nullable="false" />
           <Property Name="id_bill" Type="Int32" Nullable="false" />
-          <Property Name="id_schedule" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Bill" Relationship="Self.Ticket_idBill_fk" FromRole="Ticket" ToRole="Bill" />
-          <NavigationProperty Name="Schedule" Relationship="Self.Ticket_idSchedule_fk" FromRole="Ticket" ToRole="Schedule" />
+          <Property Name="id_scheduletime" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Bill" Relationship="QLCinemaWebModel.Ticket_idBill_fk" FromRole="Ticket" ToRole="Bill" />
+          <NavigationProperty Name="ScheduleTime" Relationship="QLCinemaWebModel.FK__Ticket__id_sched__628FA481" FromRole="Ticket" ToRole="ScheduleTime" />
+          <Property Name="seat" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="Bill_idAccount_fk">
-          <End Role="Account" Type="Self.Account" Multiplicity="1" />
-          <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
+          <End Type="QLCinemaWebModel.Account" Role="Account" Multiplicity="1" />
+          <End Type="QLCinemaWebModel.Bill" Role="Bill" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Account">
               <PropertyRef Name="id" />
@@ -373,8 +414,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="Ticket_idBill_fk">
-          <End Role="Bill" Type="Self.Bill" Multiplicity="1" />
-          <End Role="Ticket" Type="Self.Ticket" Multiplicity="*" />
+          <End Type="QLCinemaWebModel.Bill" Role="Bill" Multiplicity="1" />
+          <End Type="QLCinemaWebModel.Ticket" Role="Ticket" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Bill">
               <PropertyRef Name="id" />
@@ -385,8 +426,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="Movie_Genre_idGenre_fk">
-          <End Role="Genre" Type="Self.Genre" Multiplicity="1" />
-          <End Role="MovieGenre" Type="Self.MovieGenre" Multiplicity="*" />
+          <End Type="QLCinemaWebModel.Genre" Role="Genre" Multiplicity="1" />
+          <End Type="QLCinemaWebModel.MovieGenre" Role="MovieGenre" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Genre">
               <PropertyRef Name="id" />
@@ -397,8 +438,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="Movie_Genre_idMovie_fk">
-          <End Role="Movie" Type="Self.Movie" Multiplicity="1" />
-          <End Role="MovieGenre" Type="Self.MovieGenre" Multiplicity="*" />
+          <End Type="QLCinemaWebModel.Movie" Role="Movie" Multiplicity="1" />
+          <End Type="QLCinemaWebModel.MovieGenre" Role="MovieGenre" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Movie">
               <PropertyRef Name="id" />
@@ -409,8 +450,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="Schedule_idMovie_fk">
-          <End Role="Movie" Type="Self.Movie" Multiplicity="1" />
-          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <End Type="QLCinemaWebModel.Movie" Role="Movie" Multiplicity="1" />
+          <End Type="QLCinemaWebModel.Schedule" Role="Schedule" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Movie">
               <PropertyRef Name="id" />
@@ -421,8 +462,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="Schedule_idRoom_fk">
-          <End Role="Room" Type="Self.Room" Multiplicity="1" />
-          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <End Type="QLCinemaWebModel.Room" Role="Room" Multiplicity="1" />
+          <End Type="QLCinemaWebModel.Schedule" Role="Schedule" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Room">
               <PropertyRef Name="id" />
@@ -433,8 +474,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="Seat_idRoom_fk">
-          <End Role="Room" Type="Self.Room" Multiplicity="1" />
-          <End Role="Seat" Type="Self.Seat" Multiplicity="*" />
+          <End Type="QLCinemaWebModel.Room" Role="Room" Multiplicity="1" />
+          <End Type="QLCinemaWebModel.Seat" Role="Seat" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Room">
               <PropertyRef Name="id" />
@@ -444,75 +485,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Ticket_idSchedule_fk">
-          <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
-          <End Role="Ticket" Type="Self.Ticket" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Schedule">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Ticket">
-              <PropertyRef Name="id_schedule" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="QLCinemaWebEntities1" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Accounts" EntityType="Self.Account" />
-          <EntitySet Name="Bills" EntityType="Self.Bill" />
-          <EntitySet Name="Genres" EntityType="Self.Genre" />
-          <EntitySet Name="Movies" EntityType="Self.Movie" />
-          <EntitySet Name="MovieGenres" EntityType="Self.MovieGenre" />
-          <EntitySet Name="Rooms" EntityType="Self.Room" />
-          <EntitySet Name="Schedules" EntityType="Self.Schedule" />
-          <EntitySet Name="Seats" EntityType="Self.Seat" />
-          <EntitySet Name="Tickets" EntityType="Self.Ticket" />
-          <AssociationSet Name="Bill_idAccount_fk" Association="Self.Bill_idAccount_fk">
-            <End Role="Account" EntitySet="Accounts" />
-            <End Role="Bill" EntitySet="Bills" />
-          </AssociationSet>
-          <AssociationSet Name="Ticket_idBill_fk" Association="Self.Ticket_idBill_fk">
-            <End Role="Bill" EntitySet="Bills" />
-            <End Role="Ticket" EntitySet="Tickets" />
-          </AssociationSet>
-          <AssociationSet Name="Movie_Genre_idGenre_fk" Association="Self.Movie_Genre_idGenre_fk">
-            <End Role="Genre" EntitySet="Genres" />
-            <End Role="MovieGenre" EntitySet="MovieGenres" />
-          </AssociationSet>
-          <AssociationSet Name="Movie_Genre_idMovie_fk" Association="Self.Movie_Genre_idMovie_fk">
-            <End Role="Movie" EntitySet="Movies" />
-            <End Role="MovieGenre" EntitySet="MovieGenres" />
-          </AssociationSet>
-          <AssociationSet Name="Schedule_idMovie_fk" Association="Self.Schedule_idMovie_fk">
-            <End Role="Movie" EntitySet="Movies" />
-            <End Role="Schedule" EntitySet="Schedules" />
-          </AssociationSet>
-          <AssociationSet Name="Schedule_idRoom_fk" Association="Self.Schedule_idRoom_fk">
-            <End Role="Room" EntitySet="Rooms" />
-            <End Role="Schedule" EntitySet="Schedules" />
-          </AssociationSet>
-          <AssociationSet Name="Seat_idRoom_fk" Association="Self.Seat_idRoom_fk">
-            <End Role="Room" EntitySet="Rooms" />
-            <End Role="Seat" EntitySet="Seats" />
-          </AssociationSet>
-          <AssociationSet Name="Ticket_idSchedule_fk" Association="Self.Ticket_idSchedule_fk">
-            <End Role="Schedule" EntitySet="Schedules" />
-            <End Role="Ticket" EntitySet="Tickets" />
-          </AssociationSet>
-          <EntitySet Name="ScheduleTimes" EntityType="QLCinemaWebModel.ScheduleTime" />
-          <AssociationSet Name="ScheduleTime_idSchedule_fk" Association="QLCinemaWebModel.ScheduleTime_idSchedule_fk">
-            <End Role="Schedule" EntitySet="Schedules" />
-            <End Role="ScheduleTime" EntitySet="ScheduleTimes" />
-          </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="ScheduleTime">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="time" Type="Time" Nullable="false" Precision="7" />
-          <Property Name="id_schedule" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Schedule" Relationship="QLCinemaWebModel.ScheduleTime_idSchedule_fk" FromRole="ScheduleTime" ToRole="Schedule" />
-        </EntityType>
         <Association Name="ScheduleTime_idSchedule_fk">
           <End Type="QLCinemaWebModel.Schedule" Role="Schedule" Multiplicity="1" />
           <End Type="QLCinemaWebModel.ScheduleTime" Role="ScheduleTime" Multiplicity="*" />
@@ -525,7 +497,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <Association Name="FK__Ticket__id_sched__628FA481">
+          <End Type="QLCinemaWebModel.ScheduleTime" Role="ScheduleTime" Multiplicity="1" />
+          <End Type="QLCinemaWebModel.Ticket" Role="Ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ScheduleTime">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Ticket">
+              <PropertyRef Name="id_scheduletime" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -534,94 +518,70 @@
           <EntitySetMapping Name="Accounts">
             <EntityTypeMapping TypeName="QLCinemaWebModel.Account">
               <MappingFragment StoreEntitySet="Account">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Bills">
             <EntityTypeMapping TypeName="QLCinemaWebModel.Bill">
               <MappingFragment StoreEntitySet="Bill">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="amount" ColumnName="amount" />
-                <ScalarProperty Name="date" ColumnName="date" />
                 <ScalarProperty Name="id_account" ColumnName="id_account" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Genres">
             <EntityTypeMapping TypeName="QLCinemaWebModel.Genre">
               <MappingFragment StoreEntitySet="Genre">
-                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Movies">
             <EntityTypeMapping TypeName="QLCinemaWebModel.Movie">
               <MappingFragment StoreEntitySet="Movie">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="img" ColumnName="img" />
-                <ScalarProperty Name="trailer" ColumnName="trailer" />
-                <ScalarProperty Name="length_time" ColumnName="length_time" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="ageallow" ColumnName="ageallow" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="length_time" ColumnName="length_time" />
+                <ScalarProperty Name="trailer" ColumnName="trailer" />
+                <ScalarProperty Name="img" ColumnName="img" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MovieGenres">
             <EntityTypeMapping TypeName="QLCinemaWebModel.MovieGenre">
               <MappingFragment StoreEntitySet="MovieGenre">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="id_movie" ColumnName="id_movie" />
                 <ScalarProperty Name="id_genre" ColumnName="id_genre" />
+                <ScalarProperty Name="id_movie" ColumnName="id_movie" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Rooms">
             <EntityTypeMapping TypeName="QLCinemaWebModel.Room">
               <MappingFragment StoreEntitySet="Room">
-                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Schedules">
             <EntityTypeMapping TypeName="QLCinemaWebModel.Schedule">
               <MappingFragment StoreEntitySet="Schedule">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="date" ColumnName="date" />
-                <ScalarProperty Name="id_room" ColumnName="id_room" />
                 <ScalarProperty Name="id_movie" ColumnName="id_movie" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Seats">
-            <EntityTypeMapping TypeName="QLCinemaWebModel.Seat">
-              <MappingFragment StoreEntitySet="Seat">
-                <ScalarProperty Name="quality" ColumnName="quality" />
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="type" ColumnName="type" />
-                <ScalarProperty Name="price" ColumnName="price" />
                 <ScalarProperty Name="id_room" ColumnName="id_room" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Tickets">
-            <EntityTypeMapping TypeName="QLCinemaWebModel.Ticket">
-              <MappingFragment StoreEntitySet="Ticket">
+                <ScalarProperty Name="date" ColumnName="date" />
                 <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="price" ColumnName="price" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="seat_id" ColumnName="seat_id" />
-                <ScalarProperty Name="id_bill" ColumnName="id_bill" />
-                <ScalarProperty Name="id_schedule" ColumnName="id_schedule" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -630,6 +590,30 @@
               <MappingFragment StoreEntitySet="ScheduleTime">
                 <ScalarProperty Name="id_schedule" ColumnName="id_schedule" />
                 <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Seats">
+            <EntityTypeMapping TypeName="QLCinemaWebModel.Seat">
+              <MappingFragment StoreEntitySet="Seat">
+                <ScalarProperty Name="quality" ColumnName="quality" />
+                <ScalarProperty Name="id_room" ColumnName="id_room" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tickets">
+            <EntityTypeMapping TypeName="QLCinemaWebModel.Ticket">
+              <MappingFragment StoreEntitySet="Ticket">
+                <ScalarProperty Name="seat" ColumnName="seat" />
+                <ScalarProperty Name="id_scheduletime" ColumnName="id_scheduletime" />
+                <ScalarProperty Name="id_bill" ColumnName="id_bill" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="price" ColumnName="price" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
