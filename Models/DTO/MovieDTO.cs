@@ -20,7 +20,7 @@ namespace CinemaWeb.Models.ViewModel
             {
                 Id = movie.id,
                 Name = movie.name,
-                Genres = string.Join(", ", movie.MovieGenres.Select(s => s.Genre.name))
+                Genres = string.Join(", ", movie.MovieGenre.Select(s => s.Genre.name))
             };
         }
 

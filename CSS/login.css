@@ -214,7 +214,7 @@ figure {
   .form-group:last-child {
     margin-bottom: 0px; }
 
- input {
+input {
     width: 100%;
     display: block;
     border: none;
@@ -222,6 +222,7 @@ figure {
     padding: 6px 30px;
     font-family: Arial, sans-serif;
     box-sizing: border-box;
+    font-size: 1.2rem
 }
   input::-webkit-input-placeholder {
     color: #999; }

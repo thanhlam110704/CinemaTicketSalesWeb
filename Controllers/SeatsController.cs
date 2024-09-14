@@ -16,7 +16,7 @@ namespace CinemaWeb.Controllers
     
     public class SeatsController : Controller
     {
-        private QLCinemaWebEntities db = new QLCinemaWebEntities();
+        private QLCinemaWebEntities1 db = new QLCinemaWebEntities1();
 
         // GET: Seats
       

@@ -13,12 +13,11 @@ namespace CinemaWeb.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class QLCinemaWebEntities : DbContext
+    public partial class QLCinemaWebEntities1 : DbContext
     {
-        public QLCinemaWebEntities()
-            : base("name=QLCinemaWebEntities")
+        public QLCinemaWebEntities1()
+            : base("name=QLCinemaWebEntities1")
         {
-
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

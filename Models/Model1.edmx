@@ -299,7 +299,7 @@
           <Property Name="email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="password" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="role" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Bills" Relationship="QLCinemaWebModel.Bill_idAccount_fk" FromRole="Account" ToRole="Bill" />
+          <NavigationProperty Name="Bill" Relationship="QLCinemaWebModel.Bill_idAccount_fk" FromRole="Account" ToRole="Bill" />
         </EntityType>
         <EntityType Name="Bill">
           <Key>
@@ -310,7 +310,7 @@
           <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="id_account" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Account" Relationship="QLCinemaWebModel.Bill_idAccount_fk" FromRole="Bill" ToRole="Account" />
-          <NavigationProperty Name="Tickets" Relationship="QLCinemaWebModel.Ticket_idBill_fk" FromRole="Bill" ToRole="Ticket" />
+          <NavigationProperty Name="Ticket" Relationship="QLCinemaWebModel.Ticket_idBill_fk" FromRole="Bill" ToRole="Ticket" />
         </EntityType>
         <EntityType Name="Genre">
           <Key>
@@ -318,7 +318,7 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="MovieGenres" Relationship="QLCinemaWebModel.Movie_Genre_idGenre_fk" FromRole="Genre" ToRole="MovieGenre" />
+          <NavigationProperty Name="MovieGenre" Relationship="QLCinemaWebModel.Movie_Genre_idGenre_fk" FromRole="Genre" ToRole="MovieGenre" />
         </EntityType>
         <EntityType Name="Movie">
           <Key>
@@ -332,8 +332,8 @@
           <Property Name="description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="status" Type="Int32" Nullable="false" />
           <Property Name="ageallow" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="MovieGenres" Relationship="QLCinemaWebModel.Movie_Genre_idMovie_fk" FromRole="Movie" ToRole="MovieGenre" />
-          <NavigationProperty Name="Schedules" Relationship="QLCinemaWebModel.Schedule_idMovie_fk" FromRole="Movie" ToRole="Schedule" />
+          <NavigationProperty Name="MovieGenre" Relationship="QLCinemaWebModel.Movie_Genre_idMovie_fk" FromRole="Movie" ToRole="MovieGenre" />
+          <NavigationProperty Name="Schedule" Relationship="QLCinemaWebModel.Schedule_idMovie_fk" FromRole="Movie" ToRole="Schedule" />
         </EntityType>
         <EntityType Name="MovieGenre">
           <Key>
@@ -351,8 +351,8 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Schedules" Relationship="QLCinemaWebModel.Schedule_idRoom_fk" FromRole="Room" ToRole="Schedule" />
-          <NavigationProperty Name="Seats" Relationship="QLCinemaWebModel.Seat_idRoom_fk" FromRole="Room" ToRole="Seat" />
+          <NavigationProperty Name="Schedule" Relationship="QLCinemaWebModel.Schedule_idRoom_fk" FromRole="Room" ToRole="Schedule" />
+          <NavigationProperty Name="Seat" Relationship="QLCinemaWebModel.Seat_idRoom_fk" FromRole="Room" ToRole="Seat" />
         </EntityType>
         <EntityType Name="Schedule">
           <Key>
@@ -364,7 +364,7 @@
           <Property Name="id_movie" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Movie" Relationship="QLCinemaWebModel.Schedule_idMovie_fk" FromRole="Schedule" ToRole="Movie" />
           <NavigationProperty Name="Room" Relationship="QLCinemaWebModel.Schedule_idRoom_fk" FromRole="Schedule" ToRole="Room" />
-          <NavigationProperty Name="ScheduleTimes" Relationship="QLCinemaWebModel.ScheduleTime_idSchedule_fk" FromRole="Schedule" ToRole="ScheduleTime" />
+          <NavigationProperty Name="ScheduleTime" Relationship="QLCinemaWebModel.ScheduleTime_idSchedule_fk" FromRole="Schedule" ToRole="ScheduleTime" />
         </EntityType>
         <EntityType Name="ScheduleTime">
           <Key>
@@ -374,7 +374,7 @@
           <Property Name="time" Type="Time" Nullable="false" Precision="7" />
           <Property Name="id_schedule" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Schedule" Relationship="QLCinemaWebModel.ScheduleTime_idSchedule_fk" FromRole="ScheduleTime" ToRole="Schedule" />
-          <NavigationProperty Name="Tickets" Relationship="QLCinemaWebModel.FK__Ticket__id_sched__628FA481" FromRole="ScheduleTime" ToRole="Ticket" />
+          <NavigationProperty Name="Ticket" Relationship="QLCinemaWebModel.FK__Ticket__id_sched__628FA481" FromRole="ScheduleTime" ToRole="Ticket" />
         </EntityType>
         <EntityType Name="Seat">
           <Key>

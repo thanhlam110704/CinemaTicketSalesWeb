@@ -17,7 +17,7 @@ namespace CinemaWeb.Controllers
 
     public class AccountController : Controller
     {
-        public QLCinemaWebEntities db = new QLCinemaWebEntities();
+        public QLCinemaWebEntities1 db = new QLCinemaWebEntities1();
         
 
         public ActionResult Register()

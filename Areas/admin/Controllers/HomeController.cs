@@ -10,7 +10,7 @@ namespace CinemaWeb.Areas.admin.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        private QLCinemaWebEntities db = new QLCinemaWebEntities();
+        private QLCinemaWebEntities1 db = new QLCinemaWebEntities1();
 
         // GET: admin/Home
         public ActionResult Index()

@@ -13,7 +13,7 @@ namespace CinemaWeb.Areas.admin.Controllers
 {
     public class ManageSchedulesController : Controller
     {
-        private QLCinemaWebEntities db = new QLCinemaWebEntities();
+        private QLCinemaWebEntities1 db = new QLCinemaWebEntities1();
 
         // GET: admin/ManageSchedules
         public async Task<ActionResult> Index()

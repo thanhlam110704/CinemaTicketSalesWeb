@@ -12,7 +12,7 @@ namespace CinemaWeb.Controllers
    
     public class HomeController : Controller
     {
-        public QLCinemaWebEntities db = new QLCinemaWebEntities();
+        public QLCinemaWebEntities1 db = new QLCinemaWebEntities1();
         public async Task<ActionResult> Index()
         {
             return View(await db.Movies.ToListAsync());

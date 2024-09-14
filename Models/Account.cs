@@ -17,7 +17,7 @@ namespace CinemaWeb.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Account()
         {
-            this.Bills = new HashSet<Bill>();
+            this.Bill = new HashSet<Bill>();
         }
     
         public int id { get; set; }
@@ -27,6 +27,6 @@ namespace CinemaWeb.Models
         public int role { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Bill> Bills { get; set; }
+        public virtual ICollection<Bill> Bill { get; set; }
     }
 }

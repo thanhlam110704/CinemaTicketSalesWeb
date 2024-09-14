@@ -14,7 +14,7 @@ namespace CinemaWeb.Controllers
     public class SchedulesController : Controller
     {
 
-        private QLCinemaWebEntities db = new QLCinemaWebEntities();
+        private QLCinemaWebEntities1 db = new QLCinemaWebEntities1();
 
         // GET: Schedules
         public ActionResult getSchedule(int id)

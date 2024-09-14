@@ -13,7 +13,7 @@ namespace CinemaWeb.Controllers
 {
     public class TicketsController : Controller
     {
-        private QLCinemaWebEntities db = new QLCinemaWebEntities();
+        private QLCinemaWebEntities1 db = new QLCinemaWebEntities1();
 
         // GET: Tickets
         public async Task<ActionResult> Index(int id_bill)

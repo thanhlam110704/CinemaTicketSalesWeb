@@ -14,7 +14,7 @@ namespace CinemaWeb.Areas.admin.Controllers
 {
     public class ManageMoviesController : Controller
     {
-        private QLCinemaWebEntities db = new QLCinemaWebEntities();
+        private QLCinemaWebEntities1 db = new QLCinemaWebEntities1();
 
         // GET: admin/ManageMovies
         public async Task<ActionResult> Index()
@@ -130,9 +130,9 @@ namespace CinemaWeb.Areas.admin.Controllers
                 temp.trailer = movie.trailer;
                 temp.ageallow = movie.ageallow;
 
-                List<MovieGenre> currentGenres = new List<MovieGenre>(temp.MovieGenres); // Sao chép danh sách thể loại hiện tại
+                List<MovieGenre> currentGenres = new List<MovieGenre>(temp.MovieGenre); // Sao chép danh sách thể loại hiện tại
 
-                foreach (var genre in temp.MovieGenres.ToList())
+                foreach (var genre in temp.MovieGenre.ToList())
                 {
                     if (selectedGenre == null || !selectedGenre.Contains(genre.id_genre))
                     {

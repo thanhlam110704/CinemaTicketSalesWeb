@@ -14,7 +14,7 @@ namespace CinemaWeb.Areas.admin.Controllers
 {
     public class ManageAccountsController : Controller
     {
-        private QLCinemaWebEntities db = new QLCinemaWebEntities();
+        private QLCinemaWebEntities1 db = new QLCinemaWebEntities1();
 
         // GET: admin/ManageAccounts
         public async Task<ActionResult> Index()

@@ -15,7 +15,7 @@ namespace CinemaWeb.Controllers
 {
     public class MoviesController : Controller
     {
-        private QLCinemaWebEntities db = new QLCinemaWebEntities();
+        private QLCinemaWebEntities1 db = new QLCinemaWebEntities1();
 
         // GET: Movies/Details/5
         public async Task<ActionResult> Details(int? id)
@@ -44,7 +44,7 @@ namespace CinemaWeb.Controllers
                     .AsNoTracking()
                     .Where(movie =>
                         movie.name.ToLower().Contains(keyword.ToLower()) ||
-                        movie.MovieGenres.Any(mg => mg.Genre.name.ToLower().Contains(keyword.ToLower()))
+                        movie.MovieGenre.Any(mg => mg.Genre.name.ToLower().Contains(keyword.ToLower()))
                     )
                     .ToList();
 

@@ -13,7 +13,7 @@ namespace CinemaWeb.Controllers
 {
     public class BillsController : Controller
     {
-        private QLCinemaWebEntities db = new QLCinemaWebEntities();
+        private QLCinemaWebEntities1 db = new QLCinemaWebEntities1();
         // GET: Bills/Details/5
        
         public async Task<ActionResult> History(int customerId)
@@ -21,7 +21,7 @@ namespace CinemaWeb.Controllers
            
             var customerBills = await db.Bills
                                     .Where(b => b.id_account == customerId)
-                                    .Include(b => b.Tickets)
+                                    .Include(b => b.Ticket)
                                     .OrderByDescending(b => b.date)
                                     .ToListAsync();
 
